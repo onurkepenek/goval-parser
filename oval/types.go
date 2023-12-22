@@ -216,14 +216,17 @@ type Bug struct {
 // Cve : >definitions>definition>metadata>advisory>cve
 // RedHat OVAL
 type Cve struct {
-	XMLName xml.Name `xml:"cve"`
-	CveID   string   `xml:",chardata"`
-	Cvss2   string   `xml:"cvss2,attr"`
-	Cvss3   string   `xml:"cvss3,attr"`
-	Cwe     string   `xml:"cwe,attr"`
-	Impact  string   `xml:"impact,attr"`
-	Href    string   `xml:"href,attr"`
-	Public  string   `xml:"public,attr"`
+	XMLName      xml.Name `xml:"cve"`
+	CveID        string   `xml:",chardata"`
+	Cvss2        string   `xml:"cvss2,attr"`
+	Cvss3        string   `xml:"cvss3,attr"`
+	CvssScore    string   `xml:"cvss_score,attr"`
+	CvssSeverity string   `xml:"cvss_severity,attr"`
+	Priority     string   `xml:"priority,attr"`
+	Cwe          string   `xml:"cwe,attr"`
+	Impact       string   `xml:"impact,attr"`
+	Href         string   `xml:"href,attr"`
+	Public       string   `xml:"public,attr"`
 }
 
 // Bugzilla : >definitions>definition>metadata>advisory>bugzilla
@@ -263,14 +266,16 @@ type Tests struct {
 }
 
 // ObjectRef : >tests>line_test>object-object_ref
-//           : >tests>version55_test>object-object_ref
+//
+//	: >tests>version55_test>object-object_ref
 type ObjectRef struct {
 	XMLName   xml.Name `xml:"object"`
 	ObjectRef string   `xml:"object_ref,attr"`
 }
 
 // StateRef : >tests>line_test>state-state_ref
-//          : >tests>version55_test>state-state_ref
+//
+//	: >tests>version55_test>state-state_ref
 type StateRef struct {
 	XMLName  xml.Name `xml:"state"`
 	StateRef string   `xml:"state_ref,attr"`
