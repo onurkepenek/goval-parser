@@ -152,3 +152,17 @@ func TestBadDateElements(t *testing.T) {
 		}
 	}
 }
+
+func TestTimestampAttr(t *testing.T) {
+	var v struct {
+		Date Date `xml:"issued"`
+	}
+	in := `<div><issued date="2022-04-25T15:37:26Z" /></div>`
+	if err := xml.Unmarshal([]byte(in), &v); err != nil {
+		t.Fatal(err)
+	}
+	want := time.Date(2022, time.Month(4), 25, 15, 37, 26, 0, time.UTC)
+	if got := v.Date.Date; !got.Equal(want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}

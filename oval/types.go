@@ -192,11 +192,14 @@ func (d *Date) UnmarshalXMLAttr(attr xml.Attr) error {
 		return nil
 	}
 	var err error
-	d.Date, err = time.Parse(dsfmt, attr.Value)
-	if err != nil {
-		return err
+	// Ubuntu writes the time of the date too, `YYYY-MM-DDThh:mm:ssZ`
+	for _, f := range []string{dsfmt, time.RFC3339} {
+		d.Date, err = time.Parse(f, attr.Value)
+		if err == nil {
+			return nil
+		}
 	}
-	return nil
+	return err
 }
 
 // Ref : >definitions>definition>metadata>advisory>ref
